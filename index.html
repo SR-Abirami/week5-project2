@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Character Counter</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 flex justify-center items-center h-screen">
+
+  <div class="bg-white p-6 rounded-2xl shadow-lg w-96">
+    <h2 class="text-2xl font-semibold mb-4 text-gray-800">Message Box</h2>
+
+    <!-- Text Area -->
+    <textarea id="messageBox" 
+      class="w-full p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400" 
+      rows="5" maxlength="200" placeholder="Type your message..."></textarea>
+
+    <!-- Character Counter -->
+    <div class="flex justify-between items-center mt-2">
+      <p id="charCounter" class="text-sm text-gray-600">0/200 characters</p>
+      <p id="warningMsg" class="text-sm text-red-500 hidden">Character limit reached!</p>
+    </div>
+  </div>
+
+  <script>
+    const textarea = document.getElementById('messageBox');
+    const charCounter = document.getElementById('charCounter');
+    const warningMsg = document.getElementById('warningMsg');
+    const maxChars = 200;
+
+    textarea.addEventListener('input', () => {
+      let typedChars = textarea.value.length;
+
+      // Update counter
+      charCounter.textContent = `${typedChars}/${maxChars} characters`;
+
+      // Show warning if limit reached
+      if (typedChars >= maxChars) {
+        warningMsg.classList.remove('hidden');
+        textarea.value = textarea.value.substring(0, maxChars); // Prevent extra input
+      } else {
+        warningMsg.classList.add('hidden');
+      }
+    });
+  </script>
+
+</body>
+</html>
